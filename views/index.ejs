@@ -43,42 +43,39 @@
             </div>
         </div>
         <% users.forEach(function(user) { %>
-            <div class="card">
-                <div class="star">
-                    <img class="star_img" src="/img/re.svg" alt="">
-                    <%= user.rating %>
-                </div>
-                <div class="reason">
-                    <p><%= user.reason %></p>
-                </div>
-                <div class="person">
-                    <p>（<%= user.username %> / <%= user.age %>歳）</p>
-                </div>
+        <div class="card">
+            <div class="star">
+                <img class="star_img" src="/img/re.svg" alt="">
+                <%= user.rating %>
             </div>
-            <% }) %>
-                <script>
-                    // データ取得
-                    let users = `<%= users %>`;
-                    let newList = `<%= newList %>`;
-                    // DOMの取得
-                    let starFilter = document.querySelector('#starFilter');
-                    let sortBtn = document.querySelector('#sortBtn');
-                    let filterBtn = document.querySelector('#filterBtn');
-                    // 評価値のソート機能
-                    function reviewSortFunc() {
-                        let reviewSort = document.querySelector('#reviewSort');
-                        if (reviewSort.value === "評価が高い順") {
-                            // newList = users.sort((a, b) => a[rating] - b[rating]);
-                            users.forEach( user => {
-                                console.log(user)
-                            })
-                        }
-                        if (reviewSort.value === "評価が低い順") {
-                            newList = users.sort((a, b) => b.rating - a.rating);
-                        }
+            <div class="reason">
+                <p><%= user.reason %></p>
+            </div>
+            <div class="person">
+                <p>（<%= user.username %> / <%= user.age %>歳）</p>
+            </div>
+        </div>
+        <% }) %>
+            <script>
+                // データ取得
+                let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
+                let newList = `<%= newList %>`;
+                // DOMの取得
+                let starFilter = document.querySelector('#starFilter');
+                let sortBtn = document.querySelector('#sortBtn');
+                let filterBtn = document.querySelector('#filterBtn');
+                // 評価値のソート機能
+                function reviewSortFunc() {
+                    let reviewSort = document.querySelector('#reviewSort');
+                    if (reviewSort.value === "評価が高い順") {
+                        users.sort((a, b) => a.rating - b.rating);
                     }
-                    sortBtn.addEventListener('click', reviewSortFunc);
+                    if (reviewSort.value === "評価が低い順") {
+                        users.sort((a, b) => b.rating - a.rating);
+                    }
+                }
+                sortBtn.addEventListener('click', reviewSortFunc);
 
-                </script>
+            </script>
     </body>
 </html>
