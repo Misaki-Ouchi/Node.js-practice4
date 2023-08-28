@@ -10,19 +10,21 @@
         <h1>カスタマーレビュー</h1>
         <div class="sortEtc">
             <div>
+                <span>並び替え：</span>
                 <select name="reviewSort" id="reviewSort">
+                    <option value="デフォルト">デフォルト</option>
                     <option value="評価が高い順">評価が高い順</option>
                     <option value="評価が低い順">評価が低い順</option>
                 </select>
-                <button id="sortBtn">並び替え</button><br>
+                <br><span>絞り込み：</span>
                 <select name="starFilter" id="starFilter">
+                    <option value="デフォルト">デフォルト</option>
                     <option value="星５">星５</option>
                     <option value="星４">星４</option>
                     <option value="星３">星３</option>
                     <option value="星２">星２</option>
                     <option value="星１">星１</option>
                 </select>
-                <button id="filterBtn">絞り込み</button>
             </div>
             <div class="analytics">
                 <span>統計結果：</span>
@@ -42,40 +44,75 @@
                 </div>
             </div>
         </div>
-        <% users.forEach(function(user) { %>
-        <div class="card">
-            <div class="star">
-                <img class="star_img" src="/img/re.svg" alt="">
-                <%= user.rating %>
-            </div>
-            <div class="reason">
-                <p><%= user.reason %></p>
-            </div>
-            <div class="person">
-                <p>（<%= user.username %> / <%= user.age %>歳）</p>
-            </div>
+        <div id="cards">
         </div>
-        <% }) %>
-            <script>
-                // データ取得
-                let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
-                let newList = `<%= newList %>`;
-                // DOMの取得
-                let starFilter = document.querySelector('#starFilter');
-                let sortBtn = document.querySelector('#sortBtn');
-                let filterBtn = document.querySelector('#filterBtn');
-                // 評価値のソート機能
-                function reviewSortFunc() {
-                    let reviewSort = document.querySelector('#reviewSort');
-                    if (reviewSort.value === "評価が高い順") {
-                        users.sort((a, b) => a.rating - b.rating);
-                    }
-                    if (reviewSort.value === "評価が低い順") {
-                        users.sort((a, b) => b.rating - a.rating);
-                    }
+        <script>
+            // データ取得
+            let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
+            let newList = [];
+            // DOMの取得
+            let cards = document.querySelector('#cards');
+            let starFilter = document.querySelector('#starFilter');
+            let reviewSort = document.querySelector('#reviewSort');
+            // 評価値のソート機能
+            function reviewSortFunc() {
+                if (reviewSort.value === "デフォルト") {
                 }
-                sortBtn.addEventListener('click', reviewSortFunc);
-
-            </script>
+                if (reviewSort.value === "評価が低い順") {
+                }
+                if (reviewSort.value === "評価が高い順") {
+                }
+                newList = []
+                users.forEach(user => newList.push(user))
+                listToDom()
+            }
+            // 評価値の絞り込み
+            function starFilterFunc() {
+                console.log(users.filter(user => user.rating === 5))
+                if (starFilter.value === "デフォルト") {
+                }
+                if (starFilter.value === "星５") {
+                    users.filter(user => user.rating === 5);
+                }
+                if (starFilter.value === "星４") {
+                    users.filter(user => user.rating === 4);
+                }
+                if (starFilter.value === "星３") {
+                    users.filter(user => user.rating === 3);
+                }
+                if (starFilter.value === "星２") {
+                    users.filter(user => user.rating === 2);
+                }
+                if (starFilter.value === "星１") {
+                    users.filter(user => user.rating === 1);
+                }
+                newList = []
+                users.forEach(user => newList.push(user))
+                listToDom()
+            }
+            // DOMに表示
+            function listToDom() {
+                cards.innerHTML = '';
+                newList.forEach(user => {
+                    cards.insertAdjacentHTML('beforeend', `
+                    <div class="card">
+                        <div class="star">
+                            <img class="star_img" src="/img/re.svg" alt="">
+                            <span>${user.rating}</span>
+                        </div>
+                        <div class="reason">
+                            <span>${user.reason}</span>
+                        </div>
+                        <div class="person">
+                            <p>（<span>${user.username}</span>／<span>${user.age}</span>）</p>
+                        </div>
+                    </div>
+                    `)
+                })
+            }
+            window.addEventListener('load', reviewSortFunc)
+            reviewSort.addEventListener('change', reviewSortFunc);
+            starFilter.addEventListener('change', starFilterFunc);
+        </script>
     </body>
 </html>
