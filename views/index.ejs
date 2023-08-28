@@ -42,28 +42,38 @@
                 </div>
             </div>
         </div>
-        <% users.forEach(function(user) { %>
+
         <div class="card">
             <div class="star">
                 <img class="star_img" src="/img/re.svg" alt="">
-                <%= user.rating %>
+                <span id="userRating"></span>
             </div>
             <div class="reason">
-                <p><%= user.reason %></p>
+                <span id="userReason"></span>
             </div>
             <div class="person">
-                <p>（<%= user.username %> / <%= user.age %>歳）</p>
+                <p>（<span id="userUsername"></span>／<span id="userAge"></span>）</p>
             </div>
         </div>
-        <% }) %>
             <script>
                 // データ取得
                 let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
-                let newList = `<%= newList %>`;
                 // DOMの取得
                 let starFilter = document.querySelector('#starFilter');
                 let sortBtn = document.querySelector('#sortBtn');
                 let filterBtn = document.querySelector('#filterBtn');
+                 // データを入れるDOM
+                let userRating = document.querySelector('#userRating')
+                let userReason = document.querySelector('#userReason')
+                let userUsername = document.querySelector('#userUsername')
+                let userAge = document.querySelector('#userAge')
+                // DOMに表示
+                users.forEach(user => {
+                    userRating.innerHTML = user.rating
+                    userReason.innerHTML = user.reason
+                    userUsername.innerHTML = user.username
+                    userAge.innerHTML = user.age
+                })
                 // 評価値のソート機能
                 function reviewSortFunc() {
                     let reviewSort = document.querySelector('#reviewSort');
