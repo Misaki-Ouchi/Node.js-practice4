@@ -1,0 +1,47 @@
+p,
+dl {
+  margin: 0;
+}
+
+.sortEtc{
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 1rem;
+}
+select {
+  font-size: 1rem;
+  width: 8rem;
+}
+select:not(:last-child) {
+  margin-bottom: 1.25rem;
+}
+.analytics {
+  display: flex;
+}
+dl {
+  display: flex;
+}
+dl:nth-child(2n-1) {
+  background-color: #dad;
+}
+.star {
+  display: flex;
+  font-size: 1.2rem;
+}
+.person {
+  font-size: 0.85rem;
+}
+
+.card {
+  padding: 1rem;
+}
+.card:nth-child(2n-1) {
+  background-color: #eee;
+}
+.card:not(:last-child) {
+  /* border-bottom: 1px solid #333; */
+}
+.star_img {
+  width: 24px;
+  height: 24px;
+}

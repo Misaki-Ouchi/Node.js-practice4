@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>review</title>
+        <link rel="stylesheet" href="/css/style.css">
+    </head>
+    <body>
+        <h1>カスタマーレビュー</h1>
+        <div class="sortEtc">
+            <div>
+                <select name="reviewSort" id="reviewSort">
+                    <option value="評価が高い順">評価が高い順</option>
+                    <option value="評価が低い順">評価が低い順</option>
+                </select>
+                <button id="sortBtn">並び替え</button><br>
+                <select name="starFilter" id="starFilter">
+                    <option value="星５">星５</option>
+                    <option value="星４">星４</option>
+                    <option value="星３">星３</option>
+                    <option value="星２">星２</option>
+                    <option value="星１">星１</option>
+                </select>
+                <button id="filterBtn">絞り込み</button>
+            </div>
+            <div class="analytics">
+                <span>統計結果：</span>
+                <div>
+                    <dl>
+                        <dt>20代</dt>
+                        <dd>人</dd>
+                    </dl>
+                    <dl>
+                        <dt>30代</dt>
+                        <dd>人</dd>
+                    </dl>
+                    <dl>
+                        <dt>40代</dt>
+                        <dd>人</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+        <% users.forEach(function(user) { %>
+            <div class="card">
+                <div class="star">
+                    <img class="star_img" src="/img/re.svg" alt="">
+                    <%= user.rating %>
+                </div>
+                <div class="reason">
+                    <p><%= user.reason %></p>
+                </div>
+                <div class="person">
+                    <p>（<%= user.username %> / <%= user.age %>歳）</p>
+                </div>
+            </div>
+            <% }) %>
+                <script>
+                    // データ取得
+                    let users = `<%= users %>`;
+                    let newList = `<%= newList %>`;
+                    // DOMの取得
+                    let starFilter = document.querySelector('#starFilter');
+                    let sortBtn = document.querySelector('#sortBtn');
+                    let filterBtn = document.querySelector('#filterBtn');
+                    // 評価値のソート機能
+                    function reviewSortFunc() {
+                        let reviewSort = document.querySelector('#reviewSort');
+                        if (reviewSort.value === "評価が高い順") {
+                            // newList = users.sort((a, b) => a[rating] - b[rating]);
+                            users.forEach( user => {
+                                console.log(user)
+                            })
+                        }
+                        if (reviewSort.value === "評価が低い順") {
+                            newList = users.sort((a, b) => b.rating - a.rating);
+                        }
+                    }
+                    sortBtn.addEventListener('click', reviewSortFunc);
+
+                </script>
+    </body>
+</html>
