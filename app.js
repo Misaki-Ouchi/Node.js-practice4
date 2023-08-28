@@ -27,12 +27,10 @@ app.use(express.static("assets"));
 // mysqlからデータを持ってくる
 app.get("/", (req, res) => {
   const sql = "select * from personas";
-  const list = [];
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     res.render("index", {
-      users: result,
-      newList: list
+      users: result
     });
   });
 });

@@ -31,15 +31,15 @@
                 <div>
                     <dl>
                         <dt>20代</dt>
-                        <dd>人</dd>
+                        <dd><%= users.filter(user => user.age >= '20' &&  user.age < '30').length %>人</dd>
                     </dl>
                     <dl>
                         <dt>30代</dt>
-                        <dd>人</dd>
+                        <dd><%= users.filter(user => user.age >= '30' &&  user.age < '40').length %>人</dd>
                     </dl>
                     <dl>
                         <dt>40代</dt>
-                        <dd>人</dd>
+                        <dd><%= users.filter(user => user.age >= '40' &&  user.age < '50').length %>人</dd>
                     </dl>
                 </div>
             </div>
@@ -47,6 +47,7 @@
         <div id="cards">
         </div>
         <script>
+            // let count1 = users.filter(user => user.age === 20).length
             // データ取得
             let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
             let newList = [];
@@ -54,43 +55,45 @@
             let cards = document.querySelector('#cards');
             let starFilter = document.querySelector('#starFilter');
             let reviewSort = document.querySelector('#reviewSort');
+
             // 評価値のソート機能
             function reviewSortFunc() {
+                newList = []
                 if (reviewSort.value === "デフォルト") {
+                    newList = users.sort((a, b) => a.id - b.id);
                 }
                 if (reviewSort.value === "評価が低い順") {
+                    newList = users.sort((a, b) => a.rating - b.rating);
                 }
                 if (reviewSort.value === "評価が高い順") {
+                    newList= users.sort((a, b) => b.rating - a.rating);
                 }
-                newList = []
-                users.forEach(user => newList.push(user))
                 listToDom()
             }
             // 評価値の絞り込み
             function starFilterFunc() {
-                console.log(users.filter(user => user.rating === 5))
+                newList = []
                 if (starFilter.value === "デフォルト") {
+                    newList = users
                 }
                 if (starFilter.value === "星５") {
-                    users.filter(user => user.rating === 5);
+                    newList = users.filter(user => user.rating === 5);
                 }
                 if (starFilter.value === "星４") {
-                    users.filter(user => user.rating === 4);
+                    newList = users.filter(user => user.rating === 4);
                 }
                 if (starFilter.value === "星３") {
-                    users.filter(user => user.rating === 3);
+                    newList = users.filter(user => user.rating === 3);
                 }
                 if (starFilter.value === "星２") {
-                    users.filter(user => user.rating === 2);
+                    newList = users.filter(user => user.rating === 2);
                 }
                 if (starFilter.value === "星１") {
-                    users.filter(user => user.rating === 1);
+                    newList = users.filter(user => user.rating === 1);
                 }
-                newList = []
-                users.forEach(user => newList.push(user))
                 listToDom()
             }
-            // DOMに表示
+            // DOM(#card)に表示
             function listToDom() {
                 cards.innerHTML = '';
                 newList.forEach(user => {
