@@ -59,63 +59,6 @@ app.get("/", (req, res) => {
   );
 });
 
-// ソート機能（星の数） DESC: 降順、ASC: 昇順（デフォルト）
-// app.get("/", (req, res) => {
-//   const desc = "SELECT * from personas ORDER BY rating DESC";
-//   const asc = "SELECT * from personas ORDER BY rating asc";
-//   con.query(desc, function (err, result, fields) {
-//     if (err) throw err;
-//     res.render("index", {
-//       usersDesc: result
-//     });
-//   });
-//   con.query(asc, function (err, result, fields) {
-//     if (err) throw err;
-//     res.render("index", {
-//       usersAsc: result
-//     });
-//   });
-// });
-
-// 絞り込み機能（星の数）
-// app.get("/", (req, res) => {
-//   const rate5 = "SELECT * from personas WHERE 5 = rating";
-//   const rate4 = "SELECT * from personas WHERE 4 = rating";
-//   const rate3 = "SELECT * from personas WHERE 3 = rating";
-//   const rate2 = "SELECT * from personas WHERE 2 = rating";
-//   const rate1 = "SELECT * from personas WHERE 1 = rating";
-//   con.query(rate5, function (err, result, fields) {
-//     if (err) throw err;
-//     res.render("index", {
-//       usersRate5: result
-//     });
-//   });
-//   con.query(rate4, function (err, result, fields) {
-//     if (err) throw err;
-//     res.render("index", {
-//       usersRate4: result
-//     });
-//   });
-//   con.query(rate3, function (err, result, fields) {
-//     if (err) throw err;
-//     res.render("index", {
-//       usersRate3: result
-//     });
-//   });
-//   con.query(rate2, function (err, result, fields) {
-//     if (err) throw err;
-//     res.render("index", {
-//       usersRate2: result
-//     });
-//   });
-//   con.query(rate1, function (err, result, fields) {
-//     if (err) throw err;
-//     res.render("index", {
-//       usersRate1: result
-//     });
-//   });
-// });
-
 // データ新規追加
 app.post("/", (req, res) => {
   const sql = "INSERT INTO personas SET ?";
