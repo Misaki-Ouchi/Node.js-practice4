@@ -35,6 +35,9 @@
                     <option value="星２">星２</option>
                     <option value="星１">星１</option>
                 </select>
+                <span>検索</span>
+                <input type="text">
+                <button id="searchBtn">検索</button>
             </div>
             <div class="analytics">
                 <span>統計結果：</span>
@@ -60,23 +63,29 @@
             // データ取得
             let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
             let usersDesc = JSON.parse('<%= JSON.stringify(usersDesc) %>'.replace(/&#34;/g, '"'));
+            let usersAsc = JSON.parse('<%= JSON.stringify(usersAsc) %>'.replace(/&#34;/g, '"'));
+            let usersRate5 = JSON.parse('<%= JSON.stringify(usersRate5) %>'.replace(/&#34;/g, '"'));
+            let usersRate4 = JSON.parse('<%= JSON.stringify(usersRate4) %>'.replace(/&#34;/g, '"'));
+            let usersRate3 = JSON.parse('<%= JSON.stringify(usersRate3) %>'.replace(/&#34;/g, '"'));
+            let usersRate2 = JSON.parse('<%= JSON.stringify(usersRate2) %>'.replace(/&#34;/g, '"'));
+            let usersRate1 = JSON.parse('<%= JSON.stringify(usersRate1) %>'.replace(/&#34;/g, '"'));
             let newList = [];
             // DOMの取得
             let cards = document.querySelector('#cards');
             let starFilter = document.querySelector('#starFilter');
             let reviewSort = document.querySelector('#reviewSort');
 
-            // 評価値のソート機能
+            // 評価値のソート
             function reviewSortFunc() {
                 newList = []
                 if (reviewSort.value === "デフォルト") {
-                    newList = users.sort((a, b) => a.id - b.id);
-                }
-                if (reviewSort.value === "評価が低い順") {
-                    newList = users.sort((a, b) => a.rating - b.rating);
+                    newList = users;
                 }
                 if (reviewSort.value === "評価が高い順") {
-                    newList= users.sort((a, b) => b.rating - a.rating);
+                    newList= usersDesc;
+                }
+                if (reviewSort.value === "評価が低い順") {
+                    newList = usersAsc;
                 }
                 listToDom()
             }
@@ -87,19 +96,19 @@
                     newList = users
                 }
                 if (starFilter.value === "星５") {
-                    newList = users.filter(user => user.rating === 5);
+                    newList = usersRate5;
                 }
                 if (starFilter.value === "星４") {
-                    newList = users.filter(user => user.rating === 4);
+                    newList = usersRate4;
                 }
                 if (starFilter.value === "星３") {
-                    newList = users.filter(user => user.rating === 3);
+                    newList = usersRate3;
                 }
                 if (starFilter.value === "星２") {
-                    newList = users.filter(user => user.rating === 2);
+                    newList = usersRate2;
                 }
                 if (starFilter.value === "星１") {
-                    newList = users.filter(user => user.rating === 1);
+                    newList = usersRate1;
                 }
                 listToDom()
             }
