@@ -24,7 +24,7 @@ const con = mysql.createConnection({
 // cssファイルの取得
 app.use(express.static("assets"));
 
-// mysqlからデータを持ってくる
+// index.ejsで使用
 app.get("/", (req, res) => {
   const sql = "select * from personas";
   con.query(sql, function (err, result, fields) {
@@ -34,5 +34,45 @@ app.get("/", (req, res) => {
     });
   });
 });
+
+// データ新規追加
+app.post('/', (req, res) => {
+  const sql = "INSERT INTO personas SET ?"
+  con.query(
+    "INSERT INTO personas(username, age, rating, reason) VALUES (?, ?, ?, ?)",
+    [
+      req.body.username,
+      req.body.age,
+      req.body.rating,
+      req.body.reason
+    ],
+    function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.send('追加されました');
+  });
+});
+
+// 更新フォームへ移動・edit.ejsで使用
+app.get('/edit/:id', (req, res) => {
+  const sql = "SELECT * FROM personas WHERE id = ?";
+  con.query(sql, [req.params.id], function (err, result, fields) {
+    if (err) throw err;
+    res.render('edit', {
+      users: result
+    });
+  });
+});
+
+// データ更新
+app.post('/update/:id', (req, res) => {
+  const sql = "UPDATE personas SET ? WHERE id = " + req.params.id;
+  con.query(sql, req.body, function (err, result, fields) {
+    if (err) throw err;
+    console.log(result);
+    res.redirect('/');
+  });
+});
+
 
 app.listen(port, () => console.log(`Example app listening on port ${port}!`));

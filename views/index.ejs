@@ -8,6 +8,16 @@
     </head>
     <body>
         <h1>カスタマーレビュー</h1>
+        <div class="create">
+            <p class="formTitle">新規追加</p>
+            <form id="createForm" action="" method="post">
+                <p><span>ユーザー名：</span><input type="text" name="username"></p>
+                <p><span>年齢：</span><input type="text" name="age">歳</p>
+                <p><span>評価：</span><select name="rating"><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></p>
+                <p><span>評価内容：</span><br><textarea name="reason"></textarea></p>
+                <p><input type="submit" value="送信"></p>
+            </form>
+        </div>
         <div class="sortEtc">
             <div>
                 <span>並び替え：</span>
@@ -47,7 +57,6 @@
         <div id="cards">
         </div>
         <script>
-            // let count1 = users.filter(user => user.age === 20).length
             // データ取得
             let users = JSON.parse('<%= JSON.stringify(users) %>'.replace(/&#34;/g, '"'));
             let newList = [];
@@ -93,7 +102,7 @@
                 }
                 listToDom()
             }
-            // DOM(#card)に表示
+            // DOM(#cardsの中)に表示
             function listToDom() {
                 cards.innerHTML = '';
                 newList.forEach(user => {
@@ -107,7 +116,10 @@
                             <span>${user.reason}</span>
                         </div>
                         <div class="person">
-                            <p>（<span>${user.username}</span>／<span>${user.age}</span>）</p>
+                            <p>（<span>${user.username}</span>／<span>${user.age}歳</span>）</p>
+                        </div>
+                        <div class="edit">
+                            <a href="/edit/${user.id}">更新</a>
                         </div>
                     </div>
                     `)

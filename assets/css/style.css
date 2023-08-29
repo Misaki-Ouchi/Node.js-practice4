@@ -1,3 +1,9 @@
+body {
+  max-width: 600px;
+  padding: 1rem;
+  margin: auto;
+}
+
 p,
 dl {
   margin: 0;
@@ -22,7 +28,10 @@ dl {
   display: flex;
 }
 dl:nth-child(2n-1) {
-  background-color: #dad;
+  background-color: #ebe;
+}
+dl:nth-child(2n) {
+  background-color: #fef;
 }
 .star {
   display: flex;
@@ -38,10 +47,50 @@ dl:nth-child(2n-1) {
 .card:nth-child(2n-1) {
   background-color: #eee;
 }
-.card:not(:last-child) {
-  /* border-bottom: 1px solid #333; */
-}
 .star_img {
   width: 24px;
   height: 24px;
+}
+
+.create {
+  padding: 0 1rem;
+  margin-bottom: 2rem;
+}
+.formTitle {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+form span {
+  text-align: left;
+  display: inline-block;
+  width: 7rem;
+}
+form input[type="submit"] {
+  margin-top: 0.5rem;
+}
+form input[name="age"] {
+  width: 3rem;
+  margin-right: 0.2rem;
+}
+form select {
+  width: 3.5rem;
+}
+form textarea {
+  width: 20rem;
+  height: 3rem;
+}
+
+.edit {
+  margin-top: 0.5rem;
+}
+.edit a {
+  cursor: pointer;
+  font-size: 0.8rem;
+  background-color: #bbd;
+  text-decoration-line: underline;
+  text-underline-offset: 1.5px;
+  padding: 0.2rem 0.5rem;
+}
+.edit a:hover {
+  background-color: #bbf;
 }

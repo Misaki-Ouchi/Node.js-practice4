@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Form</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <h1>レビュー更新フォーム</h1>
+    <form id="editForm" action="/update/<%= users[0].id %>" method="post">
+        <p><span>ユーザー名：</span><input type="text" name="username" value="<%= users[0].username %>"></p>
+        <p><span>年齢：</span><input type="text" name="age" value="<%= users[0].age %>">歳</p>
+        <p><span>評価：</span><select name="rating" value="<%= users[0].rating %>"><option value="5">5</option><option value="4">4</option><option value="3">3</option><option value="2">2</option><option value="1">1</option></select></p>
+        <p><span>評価内容：</span><br><textarea name="reason"><%= users[0].reason %></textarea></p>
+        <p><input type="submit" value="更新"></p>
+    </form>
+</body>
+</html>
